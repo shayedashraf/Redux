@@ -22,12 +22,25 @@ const rootReducer = (state = initState, action) => {
             num: state.num + action.a
         }
     }
+
+    if (action.type === 'DEC_NUM') {
+        return {
+            ...state,
+            num: state.num - action.b
+        }
+    }
     return state;
 }
 
 
 //store
 const store = redux.createStore(rootReducer);
+
+//subscribe 
+store.subscribe(() => {
+    console.log("[subscribe]", store.getState());
+
+})
 
 store.dispatch({
     type: 'INC_NUM'
@@ -39,4 +52,8 @@ store.dispatch({
     a: 35
 })
 
-console.log(store.getState());
+store.dispatch({
+    type: 'DEC_NUM',
+    b: 5
+})
+
